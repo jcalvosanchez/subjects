@@ -16,6 +16,8 @@ Este repositorio contiene una colección de ejemplos prácticos en **Java** para
   - [Thread Synchronization](#thread-synchronization)
   - [Thread Pools](#thread-pools)
   - [Inter-Thread Communication](#inter-thread-communication)
+- [Programación Distribuida](#programación-distribuida)
+  - [Hello World Server and Client]()
 
 ## Multi Proceso
 
@@ -73,6 +75,68 @@ Communication between threads is crucial in many multithreading scenarios. In th
 - Using `wait()` and `notify()` for basic inter-thread communication
 - How to use `BlockingQueue` for producer-consumer patterns
 - Best practices for managing communication between threads
+
+## Programación Distribuida
+
+### Hello world Server and Client
+
+#### Descripción del problema
+
+El objetivo es crear una aplicación que actúe a modo de **servidor**, a la espera que una aplicación **cliente** le envíe una petición (**request**) que contestará con una respuesta (**response**).
+
+#### Solución
+
+- **Servidor**: La clase `es.educa.psyp.distributed.sockets.HelloWorldServer` creará un `ServerSocket` para escuchar en un puerto determinado y acepta conexiones de clientes. Al recibir un mensaje, el servidor lo imprime y envía una respuesta.
+- **Cliente**: El cliente `es.educa.psyp.distributed.sockets.HelloWorldClient` se conecta al servidor a través de un `Socket` y envía un mensaje. Luego, espera la respuesta del servidor e imprime el mensaje recibido.
+
+#### Cómo ejecutarlo
+
+El código asume que
+- Servidor y cliente se ejecutan en la misma máquina.
+- El puerto `12345` está libre.
+
+Arranca el proceso del servidor. Cuando el servidor esté listo para recibir mensajes, veremos una traza en la consola:
+
+```
+Conectado al servidor en 12345
+```
+Arrancamos el proceso del cliente
+- Intentará conectarse al servidor
+- Envía una petición (request) pasando el nombre de Alicia
+- Escucha la respuesta del servidor (response)
+- Imprime en consola la respuesta del servidor
+- Libera los recursos y se cierra
+
+```
+Conectado al servidor en localhost:12345
+Respuesta del servidor: Hello Alicia, from Server!
+```
+En la terminal del servidor, debería mostrarse un mensaje cuando recibe el mensaje del cliente, y a continuación liberar recursos y terminar su ejecución, dejando el puerto libre.
+
+```
+Recibido del cliente: Alicia
+```
+
+#### Para saber más
+
+##### Servidor - Puerto en uso
+
+Si el puerto utilizado por el servidor ya está siendo utilizado por otro proceso del sistema, el servidor no podrá arrancar.
+
+Puedes escanear los puertos que están en uso en este momento en un sistema?
+
+##### Cliente - Servidor no encontrado
+
+Si el cliente no puede encontrar un servidor en la dirección y puerto especificados, en este ejemplo localhost:12345, la conexión no puede realizarse.
+
+Hay múltiples razones por las que el servidor no se encuentre
+- La dirección del servidor es incorrecta
+- La dirección del servidor no se puede resolver
+- La dirección del servidor es correcta, pero el puerto no escucha
+- El servidor no está arrancado
+- El servidor está arrancado pero el proceso no
+- Hay un problema de red (firewall, dns, infraestructura caída...)
+
 
 ## How to Run
 
