@@ -14,25 +14,27 @@ public class HelloWorldServer {
 		try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT)) {
 			System.out.println("Servidor escuchando en el puerto " + SERVER_PORT);
 
-			// Esperar y aceptar la conexión del cliente
-			Socket clientSocket = serverSocket.accept();
-			System.out.println("Cliente conectado desde: " + clientSocket.getInetAddress());
+			while (true) {
+				// Esperar y aceptar la conexión del cliente
+				Socket clientSocket = serverSocket.accept();
+				System.out.println("Cliente conectado desde: " + clientSocket.getInetAddress());
 
-			// Flujos de entrada y salida para la comunicación con el cliente
-			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+				// Flujos de entrada y salida para la comunicación con el cliente
+				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
-			// Leer el mensaje del cliente
-			String message = in.readLine();
-			System.out.println("Recibido del cliente: " + message);
+				// Leer el mensaje del cliente
+				String message = in.readLine();
+				System.out.println("Recibido del cliente: " + message);
 
-			// Enviar respuesta al cliente
-			out.println("Hello " + message + ", from Server!");
+				// Enviar respuesta al cliente
+				out.println("Hello " + message + ", from Server!");
 
-			// Cerrar conexiones
-			in.close();
-			out.close();
-			clientSocket.close();
+				// Cerrar conexiones
+				clientSocket.close();
+				in.close();
+				out.close();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
