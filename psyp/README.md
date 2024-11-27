@@ -17,7 +17,7 @@ Este repositorio contiene una colección de ejemplos prácticos en **Java** para
   - [Thread Pools](#thread-pools)
   - [Inter-Thread Communication](#inter-thread-communication)
 - [Programación Distribuida](#programación-distribuida)
-  - [Hello World Server and Client]()
+  - [Hello World Server and Client](#hello-world-server-and-client)
 
 ## Multi Proceso
 
@@ -85,6 +85,8 @@ Communication between threads is crucial in many multithreading scenarios. In th
 El objetivo es crear una aplicación que actúe a modo de **servidor**, a la espera que una aplicación **cliente** le envíe una petición (**request**) que contestará con una respuesta (**response**).
 
 #### Solución
+
+Utilización de clases nativas en Java: `Sockets`.
 
 - **Servidor**: La clase `es.educa.psyp.distributed.sockets.HelloWorldServer` creará un `ServerSocket` para escuchar en un puerto determinado y acepta conexiones de clientes. Al recibir un mensaje, el servidor lo imprime y envía una respuesta.
 - **Cliente**: El cliente `es.educa.psyp.distributed.sockets.HelloWorldClient` se conecta al servidor a través de un `Socket` y envía un mensaje. Luego, espera la respuesta del servidor e imprime el mensaje recibido.
